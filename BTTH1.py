@@ -1,3 +1,18 @@
+# (1) Phân tích và thiết kế giải pháp
+
+# Input: Danh sách cart_items gồm nhiều dictionary đại diện cho từng sản phẩm trong giỏ hàng. Mỗi dictionary chứa các thông tin cố định bao gồm: "id" (Mã sản phẩm - chuỗi ký tự viết hoa), "name" (Tên sản phẩm - chuỗi ký tự), "number" (Số lượng sản phẩm - số nguyên dương) và "price" (Đơn giá sản phẩm - số nguyên dương).
+# Output: Hiển thị giao diện menu điều hướng hệ thống (1-5). Thực hiện kết xuất bảng chi tiết thông tin giỏ hàng kèm tổng tiền, thêm mới sản phẩm hoặc cộng dồn số lượng, cập nhật số lượng trực tiếp theo mã, xóa sản phẩm ra khỏi danh sách, hoặc kết thúc chương trình.
+#
+# Giải pháp:
+# - Sử dụng vòng lặp vô hạn while True phối hợp cấu trúc rẽ nhánh điều hướng match...case để xử lý các yêu cầu nghiệp vụ từ menu cho đến khi nhận tín hiệu thoát.
+# - Chức năng 1 (Xem chi tiết giỏ hàng & Tính tổng tiền): Thực hiện kiểm tra ranh giới độ dài danh sách cart_items. Nếu bằng 0, in thông báo giỏ hàng trống. Nếu có dữ liệu, sử dụng vòng lặp for kết hợp hàm enumerate(cart_items, 1) để hiển thị định dạng bảng căn lề thẳng hàng bằng kỹ thuật f-string. Thực hiện tính toán nhân chuỗi dữ liệu (number * price) để tính thành tiền của từng dòng, đồng thời cộng dồn vào các biến tích lũy để xuất ra tổng số lượng và tổng chi phí thanh toán.
+# - Chức năng 2 (Thêm sản phẩm mới / Cộng dồn số lượng): Nhập thông tin biển định danh và tên sản phẩm. Thiết lập các vòng lặp độc lập kết hợp phương thức .isdigit() để bẫy lỗi ép kiểu dữ liệu số nguyên cho số lượng và giá tiền. Duyệt qua danh sách bằng vòng lặp: nếu mã sản phẩm trùng với mã nhập vào, gán cờ flag = True và tiến hành cộng dồn số lượng (item["number"] += input_pro_number). Nếu duyệt hết vòng lặp mà cờ vẫn là False, sử dụng lệnh .append() để thêm cấu trúc dictionary mới vào giỏ hàng.
+# - Chức năng 3 (Cập nhật số lượng của một sản phẩm): Kiểm tra lỗi giỏ hàng trống trước khi xử lý. Nhập mã sản phẩm cần sửa và số lượng mới (xử lý validation dữ liệu số bằng .isdigit()). Duyệt tìm kiếm sản phẩm trong cấu trúc danh sách; nếu tìm thấy thì tiến hành ghi đè trực tiếp giá trị số lượng mới vào Key "number". Nếu không tìm thấy, xuất thông báo lỗi hệ thống.
+# - Chức năng 4 (Xóa sản phẩm khỏi giỏ hàng): Kiểm tra lỗi giỏ hàng trống. Nhập mã sản phẩm cần loại bỏ. Duyệt danh sách bằng hàm enumerate để lấy chính xác chỉ số index và cấu trúc dữ liệu item. Khi phát hiện mã trùng khớp, sử dụng câu lệnh del cart_items[index] để giải phóng và xóa hoàn toàn sản phẩm đó khỏi danh sách giỏ hàng.
+# - Chức năng 5 (Thoát chương trình): In thông điệp chào tạm biệt và sử dụng lệnh break để bẻ gãy vòng lặp vô hạn, chấm dứt tiến trình chạy.
+# - Edge case (Kiểm soát lỗi): Giỏ hàng trống khi thao tác xem/sửa/xóa, người dùng nhập chữ hoặc số âm vào các trường yêu cầu định dạng số nguyên (số lượng, đơn giá), nhập sai ký tự điều hướng menu nằm ngoài phạm vi lựa chọn từ 1 đến 5. Hệ thống sử dụng triệt để phương thức kiểm tra chuỗi .isdigit() để xử lý các dữ liệu đầu vào, đảm bảo chương trình hoạt động ổn định và không bị crash.
+
+
 cart_items = [
          {
          	"id": "P001", 
